@@ -1,8 +1,13 @@
-require('dotenv').config()
 require('./routes')
 const express= require('express')
 const app= express()
 const path= require('path')
+
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').config()
+}
+
+const PORT= process.env.PORT || 3000
 
 app.use(require('./routes'))
 
@@ -12,7 +17,7 @@ app.use('html', require('ejs').renderFile)
 
 app.use(express.static(path.join(__dirname + '/public') ))
 
-app.listen(process.env.PORT || 3000, ()=>{
+app.listen(PORT, ()=>{
     console.log("Server on port ", process.env.PORT)
 })
 
